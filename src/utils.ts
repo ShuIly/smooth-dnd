@@ -153,8 +153,11 @@ export const listenScrollParent = (element: HTMLElement, clb: () => void) => {
 
   function start() {
     if (scrollers) {
-      scrollers.forEach(p => p.addEventListener('scroll', clb));
-      window.addEventListener('scroll', clb);
+      // @ts-ignore
+      scrollers.forEach(p => p.__zone_symbol__addEventListener('scroll', clb));
+
+      // @ts-ignore
+      window.__zone_symbol__addEventListener('scroll', clb);
     }
   }
 

@@ -103,7 +103,8 @@ const createAnimator = (element: HTMLElement, axis: Axis = 'y'): Animator => {
 
 	function start() {
 		if (request === null) {
-			request = requestAnimationFrame((timestamp) => {
+      // @ts-ignore
+			request = __zone_symbol__requestAnimationFrame((timestamp) => {
 				if (startTime === null) { startTime = timestamp; }
 				const timeDiff = timestamp - startTime;
 				startTime = timestamp;

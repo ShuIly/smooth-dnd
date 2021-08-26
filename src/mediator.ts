@@ -37,13 +37,15 @@ function listenEvents() {
 
 function addGrabListeners() {
   grabEvents.forEach(e => {
-    window.document.addEventListener(e, onMouseDown as any, { passive: false } as any);
+  // @ts-ignore
+    window.document.__zone_symbol__addEventListener(e, onMouseDown as any, { passive: false } as any);
   });
 }
 
 function addMoveListeners() {
   moveEvents.forEach(e => {
-    window.document.addEventListener(e, onMouseMove as any, { passive: false } as any);
+  // @ts-ignore
+    window.document.__zone_symbol__addEventListener(e, onMouseMove as any, { passive: false } as any);
   });
 }
 
@@ -55,7 +57,8 @@ function removeMoveListeners() {
 
 function addReleaseListeners() {
   releaseEvents.forEach(e => {
-    window.document.addEventListener(e, onMouseUp, { passive: false });
+  // @ts-ignore
+    window.document.__zone_symbol__addEventListener(e, onMouseUp, { passive: false });
   });
 }
 
@@ -91,6 +94,7 @@ function getGhostElement(wrapperElement: HTMLElement, { x, y }: Position, contai
   ghost.style.position = 'fixed';
   ghost.style.top = '0px';
   ghost.style.left = '0px';
+  // @ts-ignore
   ghost.style.transform = null;
   ghost.style.removeProperty('transform');
 
@@ -291,13 +295,18 @@ const handleDragStartConditions = (function handleDragStartConditions() {
       timer = setTimeout(callCallback, delay);
     }
 
-    moveEvents.forEach(e => window.document.addEventListener(e, onMove as any), {
+    // @ts-ignore
+    moveEvents.forEach(e => window.document.__zone_symbol__addEventListener(e, onMove as any), {
       passive: false,
     });
-    releaseEvents.forEach(e => window.document.addEventListener(e, onUp), {
+
+    // @ts-ignore
+    releaseEvents.forEach(e => window.document.__zone_symbol__addEventListener(e, onUp), {
       passive: false,
     });
-    window.document.addEventListener('drag', onHTMLDrag, {
+
+    // @ts-ignore
+    window.document.__zone_symbol__addEventListener('drag', onHTMLDrag, {
       passive: false,
     });
   }
@@ -360,7 +369,8 @@ function onMouseDown(event: MouseEvent & TouchEvent) {
           window.document.removeEventListener('mouseup', onMouseUp);
         }
 
-        window.document.addEventListener('mouseup', onMouseUp);
+        // @ts-ignore
+        window.document.__zone_symbol__addEventListener('mouseup', onMouseUp);
       }
 
       if (startDrag) {
@@ -512,7 +522,8 @@ function handleDragImmediate(draggableInfo: DraggableInfo, dragListeningContaine
 
   if (containerBoxChanged) {
     containerBoxChanged = false;
-    requestAnimationFrame(() => {
+    // @ts-ignore
+    __zone_symbol__requestAnimationFrame(() => {
       containers.forEach(p => {
         p.layout.invalidateRects();
         p.onTranslated();
@@ -526,7 +537,8 @@ function dragHandler(dragListeningContainers: IContainer[]): (draggableInfo: Dra
   let animationFrame: number | null = null;
   return function (draggableInfo: DraggableInfo): boolean {
     if (animationFrame === null && isDragging && !dropAnimationStarted) {
-      animationFrame = requestAnimationFrame(() => {
+    // @ts-ignore
+      animationFrame = __zone_symbol__requestAnimationFrame(() => {
         if (isDragging && !dropAnimationStarted) {
           handleDragImmediate(draggableInfo, targetContainers);
           handleScroll({ draggableInfo });
@@ -617,7 +629,8 @@ function translateGhost(translateDuration = 0, scale = 1, fadeOut = false) {
 
   if (translateDuration > 0) {
     ghostInfo.ghost.style.transitionDuration = translateDuration + 'ms';
-    requestAnimationFrame(() => {
+    // @ts-ignore
+    __zone_symbol__requestAnimationFrame(() => {
       transformString && (ghost.style.transform = transformString);
       if (!useTransform) {
         ghost.style.left = x + 'px';
@@ -632,7 +645,8 @@ function translateGhost(translateDuration = 0, scale = 1, fadeOut = false) {
   }
 
   if (ghostAnimationFrame === null) {
-    ghostAnimationFrame = requestAnimationFrame(() => {
+    // @ts-ignore
+    ghostAnimationFrame = __zone_symbol__requestAnimationFrame(() => {
       transformString && (ghost.style.transform = transformString);
       if (!useTransform) {
         ghost.style.left = x + 'px';
@@ -692,7 +706,8 @@ function watchRectangles() {
   let animationHandle: number | null = null;
   let isStarted = false;
   function _start() {
-    animationHandle = requestAnimationFrame(() => {
+    // @ts-ignore
+    animationHandle = __zone_symbol__requestAnimationFrame(() => {
       dragListeningContainers.forEach(p => p.layout.invalidateRects());
       setTimeout(() => {
         if (animationHandle !== null) _start();
