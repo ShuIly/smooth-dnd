@@ -114,7 +114,8 @@ function getGhostElement(wrapperElement: HTMLElement, { x, y }: Position, contai
   ghost.style.userSelect = 'none';
 
   if (container.getOptions().dragClass) {
-    setTimeout(() => {
+    // @ts-ignore
+    __zone_symbol__setTimeout(() => {
       Utils.addClass(ghost.firstElementChild as HTMLElement, container.getOptions().dragClass!);
       const dragCursor = window.getComputedStyle(ghost.firstElementChild!).cursor;
       cursorStyleElement = addCursorStyleToBody(dragCursor!);
@@ -177,7 +178,8 @@ function handleDropAnimation(callback: Function) {
     ghostInfo.topLeft.x = left;
     ghostInfo.topLeft.y = top;
     translateGhost(duration);
-    setTimeout(function () {
+    // @ts-ignore
+    __zone_symbol__setTimeout(function () {
       endDrop();
     }, duration + 20);
   }
@@ -194,7 +196,8 @@ function handleDropAnimation(callback: Function) {
     // ghostInfo.ghost.style.transitionDuration = duration + 'ms';
     // ghostInfo.ghost.style.opacity = '0';
     // ghostInfo.ghost.style.transform = 'scale(0.90)';
-    setTimeout(function () {
+    // @ts-ignore
+    __zone_symbol__setTimeout(function () {
       clb();
     }, duration + 20);
   }
@@ -292,7 +295,8 @@ const handleDragStartConditions = (function handleDragStartConditions() {
 
   function registerEvents() {
     if (delay) {
-      timer = setTimeout(callCallback, delay);
+      // @ts-ignore
+      timer = __zone_symbol__setTimeout(callCallback, delay);
     }
 
     // @ts-ignore
@@ -709,7 +713,8 @@ function watchRectangles() {
     // @ts-ignore
     animationHandle = __zone_symbol__requestAnimationFrame(() => {
       dragListeningContainers.forEach(p => p.layout.invalidateRects());
-      setTimeout(() => {
+      // @ts-ignore
+      __zone_symbol__setTimeout(() => {
         if (animationHandle !== null) _start();
       }, 50);
     });

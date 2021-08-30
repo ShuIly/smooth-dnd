@@ -68,7 +68,8 @@ export default function layoutManager(containerElement: ElementX, orientation: O
 		invalidateContainerRectangles(containerElement);
 	});
 
-	setTimeout(() => {
+  // @ts-ignore
+	__zone_symbol__setTimeout(() => {
 		invalidate();
 	}, 10);
 

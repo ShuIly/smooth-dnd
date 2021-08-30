@@ -233,7 +233,8 @@ export const debounce = (fn: Function, delay: number, immediate: boolean) => {
     if (immediate && !timer) {
       fn.call(null, ...params);
     } else {
-      timer = setTimeout(() => {
+      // @ts-ignore
+      timer = __zone_symbol__setTimeout(() => {
         timer = null;
         fn.call(null, ...params);
       }, delay);
